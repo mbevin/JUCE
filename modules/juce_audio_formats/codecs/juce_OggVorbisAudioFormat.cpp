@@ -246,8 +246,7 @@ public:
         else if (whence == SEEK_END)
             offset += in->getTotalLength();
 
-        in->setPosition (offset);
-        return 0;
+        return in->setPosition(offset) ? 0 : -1;
     }
 
     static int oggCloseCallback (void*)
