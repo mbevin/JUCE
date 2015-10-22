@@ -378,7 +378,7 @@ protected:
                        "send them to the user's temp folder.");
 
             static const char* warningLevelNames[] = { "Low", "Medium", "High", nullptr };
-            const int warningLevels[] = { 2, 3, 4 };
+            const int warningLevels[] = { 1, 2, 4 };
 
             props.add (new ChoicePropertyComponent (getWarningLevelValue(), "Warning Level",
                                                     StringArray (warningLevelNames), Array<var> (warningLevels, numElementsInArray (warningLevels))));
