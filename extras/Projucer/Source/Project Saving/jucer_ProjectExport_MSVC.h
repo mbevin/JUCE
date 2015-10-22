@@ -1502,7 +1502,7 @@ protected:
                 cl->createNewChildElement ("RuntimeTypeInfo")->addTextElement ("true");
                 cl->createNewChildElement ("PrecompiledHeader");
                 cl->createNewChildElement ("AssemblerListingLocation")->addTextElement ("$(IntDir)\\");
-                cl->createNewChildElement ("ObjectFileName")->addTextElement ("$(IntDir)\\");
+                cl->createNewChildElement ("ObjectFileName")->addTextElement ("$(IntDir)\\%(RelativeDir)");
                 cl->createNewChildElement ("ProgramDataBaseFileName")->addTextElement ("$(IntDir)\\");
                 cl->createNewChildElement ("WarningLevel")->addTextElement ("Level" + String (config.getWarningLevel()));
                 cl->createNewChildElement ("SuppressStartupBanner")->addTextElement ("true");
