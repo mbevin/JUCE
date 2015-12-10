@@ -117,6 +117,8 @@ void ResamplingAudioSource::getNextAudioBlock (const AudioSourceChannelInfo& inf
         int numToDo = jmin (sampsNeeded - sampsInBuffer,
                             bufferSize - endOfBufferPos);
 
+        jassert(numToDo > 0);
+		 
         AudioSourceChannelInfo readInfo (&buffer, endOfBufferPos, numToDo);
         input->getNextAudioBlock (readInfo);
 
@@ -128,9 +130,15 @@ void ResamplingAudioSource::getNextAudioBlock (const AudioSourceChannelInfo& inf
                 applyFilter (buffer.getWritePointer (i, endOfBufferPos), numToDo, filterStates[i]);
         }
 
+		 jassert(sampsInBuffer >= 0);
+		 jassert(numToDo > 0);
+		 
         sampsInBuffer += numToDo;
         endOfBufferPos += numToDo;
-    }
+
+		 jassert(sampsInBuffer > 0);
+		 jassert(numToDo > 0);
+	 }
 
     for (int channel = 0; channel < channelsToProcess; ++channel)
     {
