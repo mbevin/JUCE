@@ -31,12 +31,13 @@ ChangeBroadcaster::~ChangeBroadcaster()
 {
 }
 
-void ChangeBroadcaster::addChangeListener (ChangeListener* const listener)
+void ChangeBroadcaster::addChangeListener (ChangeListener* const listener, bool requiresMMLock)
 {
     // Listeners can only be safely added when the event thread is locked
     // You can  use a MessageManagerLock if you need to call this from another thread.
-    jassert (MessageManager::getInstance()->currentThreadHasLockedMessageManager());
-
+    if(requiresMMLock) {
+        jassert (MessageManager::getInstance()->currentThreadHasLockedMessageManager());
+    }
     changeListeners.add (listener);
 }
 
