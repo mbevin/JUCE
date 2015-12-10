@@ -23,6 +23,7 @@
 namespace juce
 {
 
+
 //==============================================================================
 /**
     Holds a list of ChangeListeners, and sends messages to them when instructed.
@@ -43,7 +44,7 @@ public:
     /** Registers a listener to receive change callbacks from this broadcaster.
         Trying to add a listener that's already on the list will have no effect.
     */
-    void addChangeListener (ChangeListener* listener);
+    void addChangeListener (ChangeListener* listener, bool requiresMMLock=true);
 
     /** Unregisters a listener from the list.
         If the listener isn't on the list, this won't have any effect.
