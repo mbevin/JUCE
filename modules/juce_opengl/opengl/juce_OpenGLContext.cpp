@@ -450,6 +450,25 @@ public:
                 continue;
             }
            #endif
+			#if JUCE_MAC
+            for (NSWindow* window in [NSApp windows]) {
+                // don't sleep too long in one go, in case the window becomes un-occluded and we
+                // want to resume drawing instantly, or in case we want to quit ....
+                for(int repeats=0; repeats<20; repeats++) {
+                    bool occluded = !([window occlusionState] & NSWindowOcclusionStateVisible);
+                    if(occluded) {
+                        Thread::sleep(60);
+                        if (shouldExit())
+                            break;
+                    }
+                    else {
+                        break;
+                    }
+                }
+                // assuming that the first window is the one we're rendering to!!!
+                break;
+            }
+			#endif
 
             if (shouldExit())
                 break;
