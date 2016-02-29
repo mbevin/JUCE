@@ -84,7 +84,9 @@
  #endif
 #endif
 
-//==============================================================================
+// inserting so we can use this within juce_OpenGLContext.cpp ...
+#include "Timer.h"
+
 namespace juce
 {
 

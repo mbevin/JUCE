@@ -457,7 +457,7 @@ public:
                 for(int repeats=0; repeats<20; repeats++) {
                     bool occluded = !([window occlusionState] & NSWindowOcclusionStateVisible);
                     if(occluded) {
-                        Thread::sleep(60);
+                        Thread::sleep(80);
                         if (shouldExit())
                             break;
                     }
@@ -473,10 +473,16 @@ public:
             if (shouldExit())
                 break;
 
+            BTimer t;
+ 
             if (! renderFrame())
                 repaintEvent.wait (5); // failed to render, so avoid a tight fail-loop.
             else if (! context.continuousRepaint && ! shouldExit())
                 repaintEvent.wait (-1);
+            else {
+                // this line limits FPS to approx. say ~20 fps, instead of 60 ....
+                repaintEvent.wait(49-t.getMs());
+            }
         }
 
         hasInitialised = false;
