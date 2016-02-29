@@ -72,6 +72,9 @@
  #include <GLES2/gl2.h>
 #endif
 
+// inserting so we can use this within juce_OpenGLContext.cpp ...
+#include "Timer.h"
+
 namespace juce
 {
 
