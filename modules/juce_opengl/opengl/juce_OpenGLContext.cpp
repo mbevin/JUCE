@@ -481,7 +481,10 @@ public:
                 repaintEvent.wait (-1);
             else {
                 // this line limits FPS to approx. say ~20 fps, instead of 60 ....
-                repaintEvent.wait(49-t.getMs());
+                int waitTime = 49-t.getMs();
+                if(waitTime > 0) {
+	                repaintEvent.wait(waitTime);
+                }
             }
         }
 
