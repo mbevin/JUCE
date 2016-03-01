@@ -457,10 +457,17 @@ public:
             else if (! context.continuousRepaint && ! shouldExit())
                 repaintEvent.wait (-1);
             else {
-                // this line limits FPS to approx. say ~20 fps, instead of 60 ....
-                int waitTime = 49-t.getMs();
-                if(waitTime > 0) {
-	                repaintEvent.wait(waitTime);
+                
+                // don't limit FPS if we're playing-back at a sped-up pace ...
+                if(Settings::PlayingBack() && Settings::playbackSpeedUpNotedValueForHack > 1) {
+                    
+                }
+                else {
+                    // this limits FPS to approx. say ~20 fps, instead of 60 ....
+                    int waitTime = 49-t.getMs();
+                    if(waitTime > 0) {
+                        repaintEvent.wait(waitTime);
+                    }
                 }
             }
         }

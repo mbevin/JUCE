@@ -74,6 +74,7 @@
 
 // inserting so we can use this within juce_OpenGLContext.cpp ...
 #include "Timer.h"
+#include "Settings.h"
 
 namespace juce
 {
