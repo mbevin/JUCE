@@ -464,7 +464,15 @@ public:
                 }
                 else {
                     // this limits FPS to approx. say ~20 fps, instead of 60 ....
-                    int waitTime = 49-t.getMs();
+                    int desiredWaitTime = 49;
+                    
+                    // if really nothing happening, drop even lower to say ~10 fps ...
+                    if((Settings::Viewing() || Settings::PlayingBack()) &&
+                       Settings::framesSinceAnythingHappeningHack > 100) {
+                        desiredWaitTime = 99;
+                    }
+                    
+                    int waitTime = desiredWaitTime - t.getMs();
                     if(waitTime > 0) {
                         repaintEvent.wait(waitTime);
                     }
