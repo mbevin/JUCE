@@ -459,7 +459,8 @@ public:
             else {
                 
                 // don't limit FPS if we're playing-back at a sped-up pace ...
-                if(Settings::PlayingBack() && Settings::playbackSpeedUpNotedValueForHack > 1) {
+                if(Settings::PlayingBack() && Settings::playbackSpeedUpNotedValueForHack > 1
+                   && Settings::framesSinceAnythingHappeningHack < 100) {
                     
                 }
                 else {
