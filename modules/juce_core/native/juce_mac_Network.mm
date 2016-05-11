@@ -400,7 +400,9 @@ public:
             if (callback != nullptr)
                 callback (context, latestTotalBytes, (int) [[request HTTPBody] length]);
 
-            Thread::sleep (1);
+            // was sleeping only 1ms here!? - suspect this could be the cause of EXC_RESOURCE/WAKEUPS
+            // crashes on iOS?
+            Thread::sleep (4); //1
         }
 
         return connection != nil && ! hasFailed;
