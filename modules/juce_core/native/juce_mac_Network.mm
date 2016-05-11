@@ -707,7 +707,9 @@ public:
                 if (! listener->postDataSendProgress (inputStream, latestTotalBytes, (int) [[request HTTPBody] length]))
                     return false;
 
-            Thread::sleep (1);
+            // was sleeping only 1ms here!? - suspect this could be the cause of EXC_RESOURCE/WAKEUPS
+            // crashes on iOS?
+            Thread::sleep (4); //1
         }
 
         return connection != nil && ! hasFailed;
