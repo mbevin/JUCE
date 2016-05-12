@@ -213,6 +213,7 @@ public:
 
     bool renderFrame()
     {
+        BProfile();
         MessageManager::Lock::ScopedTryLockType mmLock (messageManagerLock, false);
         const bool isUpdating = needsUpdate.compareAndSetBool (0, 1);
 
@@ -489,14 +490,19 @@ public:
                 else {
                     // this limits FPS to approx. say ~20 fps, instead of 60 ....
                     int desiredWaitTime = 49;
-                    
+                    if(BUtils::isPlatformMobile()) {
+                        desiredWaitTime = 99;
+                    }
+						 
                     // if really nothing happening, drop even lower to say ~10 fps ...
-                    if((Settings::Viewing() || Settings::PlayingBack()) &&
+                    else if((Settings::Viewing() || Settings::PlayingBack()) &&
                        Settings::framesSinceAnythingHappeningHack > 100) {
                         desiredWaitTime = 99;
                     }
                     
                     int waitTime = desiredWaitTime - t.getMs();
+                    BStat("Render:waitTime", waitTime);
+                    
                     if(waitTime > 0) {
                         repaintEvent.wait(waitTime);
                     }
