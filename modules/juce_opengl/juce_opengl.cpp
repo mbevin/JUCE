@@ -75,6 +75,8 @@
 // inserting so we can use this within juce_OpenGLContext.cpp ...
 #include "Timer.h"
 #include "Settings.h"
+#include "BUtils.h"
+#include "BProfile.h"
 
 namespace juce
 {
@@ -120,7 +122,8 @@ void OpenGLExtensionFunctions::initialise()
 
 #undef JUCE_GL_EXTENSION_FUNCTIONS
 
-#if JUCE_DEBUG && ! defined (JUCE_CHECK_OPENGL_ERROR)
+// trying disabling entirely, re-enable if want to debug......
+#if JUCE_DEBUG && ! defined (JUCE_CHECK_OPENGL_ERROR) && 0
 static const char* getGLErrorMessage (const GLenum e) noexcept
 {
     switch (e)
