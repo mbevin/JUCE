@@ -402,7 +402,7 @@ public:
 
             // was sleeping only 1ms here!? - suspect this could be the cause of EXC_RESOURCE/WAKEUPS
             // crashes on iOS?
-            Thread::sleep (4); //1
+            Thread::sleep (10); //1
         }
 
         return connection != nil && ! hasFailed;
