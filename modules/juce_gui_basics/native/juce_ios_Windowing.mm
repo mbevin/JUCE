@@ -56,6 +56,8 @@ Array<AppInactivityCallback*> appBecomingInactiveCallbacks;
     ignoreUnused (application);
     initialiseJuce_GUI();
 
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     if (JUCEApplicationBase* app = JUCEApplicationBase::createInstance())
     {
         if (! app->initialiseApp())
