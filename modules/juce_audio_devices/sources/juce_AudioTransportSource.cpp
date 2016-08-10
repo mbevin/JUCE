@@ -134,6 +134,10 @@ void AudioTransportSource::stop()
         while (--n >= 0 && ! stopped)
             Thread::sleep (2);
 
+        // this probably means we're doing something wrong in how we use this (i.e. calling from the
+        // audio thread)
+        BAssertGt(n, 0);
+        
         sendChangeMessage();
     }
 }
