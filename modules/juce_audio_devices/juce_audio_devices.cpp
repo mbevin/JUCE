@@ -45,6 +45,8 @@
 
 #include "juce_audio_devices.h"
 
+#include "Core/BAssert.h"
+
 //==============================================================================
 #if JUCE_MAC
  #define Point CarbonDummyPointName
