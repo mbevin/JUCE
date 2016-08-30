@@ -595,7 +595,10 @@ void ListBox::selectRowsBasedOnModifierKeys (const int row,
                                              ModifierKeys mods,
                                              const bool isMouseUpEvent)
 {
-    if (multipleSelection && (mods.isCommandDown() || alwaysFlipSelection))
+    // extended the condition here to allow flipping-selection of single-selected-row to
+    // off if alwaysFlipSelection is set even when multipleSelection not set!?
+    if ( (multipleSelection || (alwaysFlipSelection && isRowSelected(row))) &&
+        (mods.isCommandDown() || alwaysFlipSelection) )
     {
         flipRowSelection (row);
     }
