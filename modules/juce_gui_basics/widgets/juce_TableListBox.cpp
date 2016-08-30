@@ -134,7 +134,7 @@ public:
 
         if (isEnabled())
         {
-            if (! isSelected)
+            if (! isSelected && owner.selectOnMouseDown)
             {
                 owner.selectRowsBasedOnModifierKeys (row, e.mods, false);
 
