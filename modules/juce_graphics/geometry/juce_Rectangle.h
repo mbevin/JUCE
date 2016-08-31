@@ -218,9 +218,13 @@ public:
     /** Returns a rectangle which has the same position and height as this one, but with a different width. */
     Rectangle withWidth (ValueType newWidth) const noexcept                                         { return Rectangle (pos.x, pos.y, newWidth, h); }
 
+    Rectangle withWidthKeepingCentre (ValueType newWidth) const noexcept                            { return withSizeKeepingCentre(newWidth, h); }
+        
     /** Returns a rectangle which has the same position and width as this one, but with a different height. */
     Rectangle withHeight (ValueType newHeight) const noexcept                                       { return Rectangle (pos.x, pos.y, w, newHeight); }
 
+    Rectangle withHeightKeepingCentre (ValueType newHeight) const noexcept                          { return withSizeKeepingCentre(w, newHeight); }
+        
     /** Returns a rectangle with the same top-left position as this one, but a new size. */
     Rectangle withSize (ValueType newWidth, ValueType newHeight) const noexcept                     { return Rectangle (pos.x, pos.y, newWidth, newHeight); }
 
