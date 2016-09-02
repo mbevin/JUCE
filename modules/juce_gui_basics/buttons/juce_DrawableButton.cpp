@@ -99,7 +99,9 @@ Rectangle<float> DrawableButton::getImageBounds() const
         }
         else if (style == ImageAboveTextLabel)
         {
-            r = r.withTrimmedBottom (jmin (16, proportionOfHeight (0.25f)));
+            // hack for how want to do our buttons for now......
+            //r = r.withTrimmedBottom (jmin (16, proportionOfHeight (0.25f)));
+            //r = r.withTrimmedBottom (int( (jmin (13, proportionOfHeight (0.2f)) - 2)*0.1f));
         }
 
         r = r.reduced (indentX, indentY);
