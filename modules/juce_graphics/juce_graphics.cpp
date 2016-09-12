@@ -103,10 +103,12 @@
  #define JUCE_USING_COREIMAGE_LOADER 0
 #endif
 
+#include "Mutex.h" // so can do hack-fix to protect glyph-drawing in GlypArrangement.
+
 //==============================================================================
 namespace juce
 {
-
+	
 #include "colour/juce_Colour.cpp"
 #include "colour/juce_ColourGradient.cpp"
 #include "colour/juce_Colours.cpp"

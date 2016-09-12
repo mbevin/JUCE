@@ -38,6 +38,7 @@ namespace
 
         return Rectangle<Type> (x, y, w, h);
     }
+    Mutex globalMutexHackToFixTextDrawingCrashes2;
 }
 
 //==============================================================================
@@ -248,6 +249,8 @@ void Graphics::drawSingleLineText (const String& text, const int startX, const i
             if (startX > context.getClipBounds().getRight())
                 return;
 
+        Lock l(globalMutexHackToFixTextDrawingCrashes2);
+        
         GlyphArrangement arr;
         arr.addLineOfText (context.getFont(), text, (float) startX, (float) baselineY);
 
@@ -273,6 +276,8 @@ void Graphics::drawMultiLineText (const String& text, const int startX,
     if (text.isNotEmpty()
          && startX < context.getClipBounds().getRight())
     {
+        Lock l(globalMutexHackToFixTextDrawingCrashes2);
+        
         GlyphArrangement arr;
         arr.addJustifiedText (context.getFont(), text,
                               (float) startX, (float) baselineY, (float) maximumLineWidth,
@@ -286,6 +291,8 @@ void Graphics::drawText (const String& text, Rectangle<float> area,
 {
     if (text.isNotEmpty() && context.clipRegionIntersects (area.getSmallestIntegerContainer()))
     {
+        Lock l(globalMutexHackToFixTextDrawingCrashes2);
+
         GlyphArrangement arr;
         arr.addCurtailedLineOfText (context.getFont(), text, 0.0f, 0.0f,
                                     area.getWidth(), useEllipsesIfTooBig);
@@ -316,6 +323,8 @@ void Graphics::drawFittedText (const String& text, Rectangle<int> area,
 {
     if (text.isNotEmpty() && (! area.isEmpty()) && context.clipRegionIntersects (area))
     {
+        Lock l(globalMutexHackToFixTextDrawingCrashes2);
+
         GlyphArrangement arr;
         arr.addFittedText (context.getFont(), text,
                            (float) area.getX(), (float) area.getY(),
