@@ -149,7 +149,7 @@ enum MissingOpenGLDefinitions
    #endif
 };
 
-#if JUCE_WINDOWS
+#if JUCE_WINDOWS && !defined(GLEE_EXTERN)
  typedef char GLchar;
  typedef pointer_sized_int GLsizeiptr;
  typedef pointer_sized_int GLintptr;
