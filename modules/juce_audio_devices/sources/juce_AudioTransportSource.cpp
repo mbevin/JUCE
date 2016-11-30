@@ -130,13 +130,20 @@ void AudioTransportSource::stop()
             playing = false;
         }
 
-        int n = 500;
-        while (--n >= 0 && ! stopped)
-            Thread::sleep (2);
+        // this will crash iOS due to the too many wakeups checking, if don't change from original
+        // code, which was sleeping 2ms 500x (i.e. up to 1s total), since somehow, sometimes, this
+        // does happen that it doesn't stop ...
+        int totalMs = 0;
+        int ms = 2;
+        while(totalMs < 1000 && !stopped) {
+        	Thread::sleep(ms);
+            totalMs += ms;
+            ms++;
+        }
 
         // this probably means we're doing something wrong in how we use this (i.e. calling from the
         // audio thread)
-        BAssertGt(n, 0);
+        BAssertLt(totalMs, 1000, "AudioTransport source was unable to stop after 1000ms!?");
         
         sendChangeMessage();
     }
