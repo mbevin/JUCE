@@ -165,6 +165,8 @@ public:
     void reset()
     {
         const ScopedLock sl (lock);
+        //jassert (MessageManager::getInstance()->currentThreadHasLockedMessageManager());
+        
         glyphs.clear();
         addNewGlyphSlots (120);
         hits.set (0);
@@ -173,6 +175,15 @@ public:
 
     void drawGlyph (RenderTargetType& target, const Font& font, const int glyphNumber, Point<float> pos)
     {
+        //const ScopedLock sl (lock);
+
+		  //
+		  // note - seems we don't have a locked-message-manager when we get here from our code ... however, when
+		  // our code was entirely disabled, we were still getting the crashes in here ... and it looks like its
+		  // the right thread...
+		  //
+        //jassert (MessageManager::getInstance()->currentThreadHasLockedMessageManager());
+        
         if (ReferenceCountedObjectPtr<CachedGlyphType> glyph = findOrCreateGlyph (font, glyphNumber))
         {
             glyph->lastAccessCount = ++accessCounter;
@@ -183,6 +194,7 @@ public:
     ReferenceCountedObjectPtr<CachedGlyphType> findOrCreateGlyph (const Font& font, int glyphNumber)
     {
         const ScopedLock sl (lock);
+        //jassert (MessageManager::getInstance()->currentThreadHasLockedMessageManager());
 
         if (CachedGlyphType* g = findExistingGlyph (font, glyphNumber))
         {
