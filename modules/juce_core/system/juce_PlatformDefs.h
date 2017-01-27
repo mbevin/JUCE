@@ -23,6 +23,8 @@
 namespace juce
 {
 
+#include "Core/BAssert.h"
+
 //==============================================================================
 /*  This file defines miscellaneous macros for debugging, assertions, etc.
 */
@@ -123,7 +125,7 @@ namespace juce
       It is only compiled in a debug build, (unless JUCE_LOG_ASSERTIONS is enabled for your build).
       @see jassert
   */
-  #define jassertfalse              JUCE_BLOCK_WITH_FORCED_SEMICOLON (JUCE_LOG_CURRENT_ASSERTION; if (juce::juce_isRunningUnderDebugger()) JUCE_BREAK_IN_DEBUGGER; JUCE_ANALYZER_NORETURN)
+  #define jassertfalse              BAssert(false)
 
   //==============================================================================
   /** Platform-independent assertion macro.
@@ -133,7 +135,7 @@ namespace juce
       correct behaviour of your program!
       @see jassertfalse
   */
-  #define jassert(expression)       JUCE_BLOCK_WITH_FORCED_SEMICOLON (if (! (expression)) jassertfalse;)
+  #define jassert(expression)       BAssert(expression)
 
 #else
   //==============================================================================
