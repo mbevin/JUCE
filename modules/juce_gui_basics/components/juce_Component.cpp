@@ -921,7 +921,7 @@ void Component::toFront (const bool setAsForeground)
         if (setAsForeground)
         {
             internalBroughtToFront();
-            grabKeyboardFocus();
+            //grabKeyboardFocus();
         }
     }
 }
@@ -1571,7 +1571,7 @@ Component* Component::removeChildComponent (const int index, bool sendParentEven
                 if (thisPointer == nullptr)
                     return child;
 
-                grabKeyboardFocus();
+                //grabKeyboardFocus();
             }
             else
             {
@@ -2840,6 +2840,7 @@ void Component::grabKeyboardFocus()
     // thread, you'll need to use a MessageManagerLock object to make sure it's thread-safe.
     ASSERT_MESSAGE_MANAGER_IS_LOCKED
 
+    
     grabFocusInternal (focusChangedDirectly, true);
 }
 
