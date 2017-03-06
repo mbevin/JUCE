@@ -339,6 +339,8 @@ public:
         : AudioFormatReader (inp, coreAudioFormatName),
           ok (false), lastReadPosition (0)
     {
+        BProfile();
+        
         usesFloatingPointData = true;
         bitsPerSample = 32;
 
@@ -368,12 +370,16 @@ public:
                 numChannels = sourceAudioFormat.mChannelsPerFrame;
                 sampleRate  = sourceAudioFormat.mSampleRate;
 
+                BProfileCheckpoint("10");
+                
                 UInt32 sizeOfLengthProperty = sizeof (int64);
                 ExtAudioFileGetProperty (audioFileRef,
                                          kExtAudioFileProperty_FileLengthFrames,
                                          &sizeOfLengthProperty,
                                          &lengthInSamples);
 
+                BProfileCheckpoint("20. FileLengthFrames");
+                
                 destinationAudioFormat.mSampleRate       = sampleRate;
                 destinationAudioFormat.mFormatID         = kAudioFormatLinearPCM;
                 destinationAudioFormat.mFormatFlags      = kLinearPCMFormatFlagIsFloat | kLinearPCMFormatFlagIsNonInterleaved | kAudioFormatFlagsNativeEndian;
@@ -383,6 +389,8 @@ public:
                 destinationAudioFormat.mFramesPerPacket  = 1;
                 destinationAudioFormat.mBytesPerPacket   = destinationAudioFormat.mFramesPerPacket * destinationAudioFormat.mBytesPerFrame;
 
+                BProfileCheckpoint("30");
+                
                 status = ExtAudioFileSetProperty (audioFileRef,
                                                   kExtAudioFileProperty_ClientDataFormat,
                                                   sizeof (AudioStreamBasicDescription),
