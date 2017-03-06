@@ -52,6 +52,8 @@
  #include <wmsdk.h>
 #endif
 
+#include "BProfile.h"
+
 //==============================================================================
 #include "format/juce_AudioFormat.cpp"
 #include "format/juce_AudioFormatManager.cpp"

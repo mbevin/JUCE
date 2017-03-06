@@ -344,6 +344,8 @@ class CoreAudioReader : public AudioFormatReader
 public:
     CoreAudioReader (InputStream* inp)  : AudioFormatReader (inp, coreAudioFormatName)
     {
+        BProfile();
+        
         usesFloatingPointData = true;
         bitsPerSample = 32;
 
@@ -373,12 +375,16 @@ public:
                 numChannels = sourceAudioFormat.mChannelsPerFrame;
                 sampleRate  = sourceAudioFormat.mSampleRate;
 
+                BProfileCheckpoint("10");
+                
                 UInt32 sizeOfLengthProperty = sizeof (int64);
                 ExtAudioFileGetProperty (audioFileRef,
                                          kExtAudioFileProperty_FileLengthFrames,
                                          &sizeOfLengthProperty,
                                          &lengthInSamples);
 
+                BProfileCheckpoint("20. FileLengthFrames");
+                
                 HeapBlock<AudioChannelLayout> caLayout;
                 bool hasLayout = false;
                 UInt32 sizeOfLayout = 0, isWritable = 0;
@@ -413,6 +419,8 @@ public:
                 destinationAudioFormat.mFramesPerPacket  = 1;
                 destinationAudioFormat.mBytesPerPacket   = destinationAudioFormat.mFramesPerPacket * destinationAudioFormat.mBytesPerFrame;
 
+                BProfileCheckpoint("30");
+                
                 status = ExtAudioFileSetProperty (audioFileRef,
                                                   kExtAudioFileProperty_ClientDataFormat,
                                                   sizeof (AudioStreamBasicDescription),
