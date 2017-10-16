@@ -326,6 +326,7 @@ extern AndroidSystem android;
  METHOD (startActivity,           "startActivity",        "(Landroid/content/Intent;)V") \
  METHOD (startActivityForResult,  "startActivityForResult", "(Landroid/content/Intent;I)V") \
  METHOD (getContentResolver,      "getContentResolver",   "()Landroid/content/ContentResolver;") \
+ METHOD (getAssets, "getAssets", "()Landroid/content/res/AssetManager;") \
 
 DECLARE_JNI_CLASS (JuceAppActivity, JUCE_ANDROID_ACTIVITY_CLASSPATH);
 #undef JNI_CLASS_MEMBERS
