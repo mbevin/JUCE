@@ -299,11 +299,12 @@ void AndroidSystem::initialise (JNIEnv* env, jobject act, jstring file, jstring 
 
     screenWidth = screenHeight = 0;
     dpi = 160;
-    JNIClassBase::initialiseAllClasses (env);
 
     activity = GlobalRef (act);
     appFile = juceString (env, file);
     appDataDir = juceString (env, dataDir);
+
+    JNIClassBase::initialiseAllClasses (env);
 }
 
 void AndroidSystem::shutdown (JNIEnv* env)
