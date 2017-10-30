@@ -37,6 +37,8 @@ extern void setEnv (JNIEnv* env) noexcept;
 /* @internal */
 extern JNIEnv* attachAndroidJNI() noexcept;
 
+extern JavaVM *getJavaVM() noexcept;
+
 //==============================================================================
 class GlobalRef
 {

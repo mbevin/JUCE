@@ -101,6 +101,8 @@ jfieldID JNIClassBase::resolveStaticField (JNIEnv* env, const char* fieldName, c
 }
 
 //==============================================================================
+ThreadLocalValue<JNIEnv*> androidJNIEnv;
+JavaVM *__juceGlobalJavaVM = NULL;
 LocalRef<jobject> CreateJavaInterface (AndroidInterfaceImplementer* implementer,
                                        const StringArray& interfaceNames,
                                        LocalRef<jobject> subclass)
@@ -279,12 +281,19 @@ JNIEnv* getEnv() noexcept
 
 void setEnv (JNIEnv* env) noexcept   { JniEnvThreadHolder::setEnv (env); }
 
+JavaVM *getJavaVM() noexcept
+{
+    return __juceGlobalJavaVM;
+}
+
 extern "C" jint JNI_OnLoad (JavaVM* vm, void*)
 {
     // Huh? JNI_OnLoad was called two times!
     jassert (androidJNIJavaVM == nullptr);
 
     androidJNIJavaVM = vm;
+    __juceGlobalJavaVM = vm;
+
     return JNI_VERSION_1_2;
 }
 
