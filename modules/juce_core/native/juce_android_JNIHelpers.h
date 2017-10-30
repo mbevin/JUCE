@@ -40,6 +40,8 @@ extern JNIEnv* getEnv() noexcept;
 // on a java thread which you did not create yourself.
 extern void setEnv (JNIEnv* env) noexcept;
 
+extern JavaVM *getJavaVM() noexcept;
+
 //==============================================================================
 class GlobalRef
 {

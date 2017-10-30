@@ -99,6 +99,7 @@ jfieldID JNIClassBase::resolveStaticField (JNIEnv* env, const char* fieldName, c
 
 //==============================================================================
 ThreadLocalValue<JNIEnv*> androidJNIEnv;
+JavaVM *__juceGlobalJavaVM = NULL;
 
 JNIEnv* getEnv() noexcept
 {
@@ -113,8 +114,15 @@ void setEnv (JNIEnv* env) noexcept
     androidJNIEnv.get() = env;
 }
 
-extern "C" jint JNI_OnLoad (JavaVM*, void*)
+JavaVM *getJavaVM() noexcept
 {
+    return __juceGlobalJavaVM;
+}
+
+extern "C" jint JNI_OnLoad (JavaVM *javaVM, void*)
+{
+    __juceGlobalJavaVM = javaVM;
+
     return JNI_VERSION_1_2;
 }
 
