@@ -35,6 +35,13 @@
 {
     return [CAEAGLLayer class];
 }
+
+// BY - disable smart-invert (as we are dark already)
+- (BOOL) accessibilityIgnoresInvertColors
+{
+    return YES;
+}
+
 @end
 
 extern "C" GLvoid glResolveMultisampleFramebufferAPPLE();
@@ -68,7 +75,13 @@ public:
 
                 glLayer = (CAEAGLLayer*) [view layer];
                 glLayer.opaque = true;
-
+            
+                // BY - disable smart-invert (as we are dark already)
+                // - seems to have no effect ....
+                if (@available(iOS 11.0, *)) {
+                    view.accessibilityIgnoresInvertColors = YES;
+                }
+                
                 updateWindowPosition (bounds);
 
                 [((UIView*) peer->getNativeHandle()) addSubview: view];
