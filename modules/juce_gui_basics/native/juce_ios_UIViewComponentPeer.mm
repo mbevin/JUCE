@@ -405,6 +405,11 @@ static bool isKioskModeView (JuceUIViewController* c)
     hiddenTextView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     hiddenTextView.autocorrectionType = UITextAutocorrectionTypeNo;
 
+    // BY - disable smart-invert (as we are dark already)
+    if (@available(iOS 11.0, *)) {
+    	self.accessibilityIgnoresInvertColors = YES;
+    }
+    
     return self;
 }
 
@@ -483,6 +488,12 @@ static bool isKioskModeView (JuceUIViewController* c)
     ignoreUnused (textView);
     return owner->textViewReplaceCharacters (Range<int> ((int) range.location, (int) (range.location + range.length)),
                                              nsStringToJuce (text));
+}
+
+// BY - disable smart-invert (as we are dark already)
+- (BOOL) accessibilityIgnoresInvertColors
+{
+	return YES;
 }
 
 @end

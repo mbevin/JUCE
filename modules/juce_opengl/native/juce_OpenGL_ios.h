@@ -35,6 +35,13 @@
 {
     return [CAEAGLLayer class];
 }
+
+// BY - disable smart-invert (as we are dark already)
+- (BOOL) accessibilityIgnoresInvertColors
+{
+    return YES;
+}
+
 @end
 
 namespace juce
@@ -69,6 +76,13 @@ public:
             view.hidden = NO;
             view.backgroundColor = [UIColor blackColor];
             view.userInteractionEnabled = NO;
+            
+            // BY - disable smart-invert (as we are dark already)
+           	// - seems to have no effect ....
+            if (@available(iOS 11.0, *)) {
+                view.accessibilityIgnoresInvertColors = YES;
+            }
+            
 
             glLayer = (CAEAGLLayer*) [view layer];
             glLayer.contentsScale = (CGFloat) Desktop::getInstance().getDisplays().getMainDisplay().scale;
