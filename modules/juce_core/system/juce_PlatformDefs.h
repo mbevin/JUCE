@@ -20,10 +20,10 @@
   ==============================================================================
 */
 
+#include "Core/BAssert.h"
+
 namespace juce
 {
-
-#include "Core/BAssert.h"
 
 //==============================================================================
 /*  This file defines miscellaneous macros for debugging, assertions, etc.
