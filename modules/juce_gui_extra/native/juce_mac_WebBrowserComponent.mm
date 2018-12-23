@@ -138,6 +138,10 @@ private:
 - (BOOL) webView: (UIWebView*) webView shouldStartLoadWithRequest: (NSURLRequest*) request
                                                    navigationType: (UIWebViewNavigationType) navigationType;
 - (void) webViewDidFinishLoad: (UIWebView*) webView;
+
+/* Mike added */
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
+
 @end
 
 @implementation WebViewURLChangeDetector
@@ -160,6 +164,17 @@ private:
 {
     ownerComponent->pageFinishedLoading (nsStringToJuce (webView.request.URL.absoluteString));
 }
+
+/* Mike added */
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    auto errorString = nsStringToJuce ([error description]);
+
+    DBG(errorString); ignoreUnused (errorString);
+
+    ownerComponent->pageLoadHadNetworkError(errorString, error.code);
+}
+
+
 @end
 
 namespace juce {

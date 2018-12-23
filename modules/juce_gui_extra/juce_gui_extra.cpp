@@ -93,7 +93,7 @@ namespace juce
 }
 
 using namespace juce;
-
+ 
 namespace juce
 {
 
@@ -140,5 +140,8 @@ namespace juce
  void WebBrowserComponent::pageFinishedLoading (const String&) {}
  void WebBrowserComponent::windowCloseRequest() {}
  void WebBrowserComponent::newWindowAttemptingToLoad (const String&) {}
+	
+ /* Mike added */
+ void WebBrowserComponent::pageLoadHadNetworkError (const String& errorDescription, int errorCode) {}
 #endif
 }
